@@ -1,6 +1,10 @@
 package med.voll.api.controller;
 
-import med.voll.api.medico.DadosCadastroMedico;
+import jakarta.validation.Valid;
+import med.voll.api.model.medico.DadosCadastroMedico;
+import med.voll.api.model.paciente.DadosCadastroPaciente;
+import med.voll.api.model.paciente.Paciente;
+import med.voll.api.repository.PacienteRepository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pacientes")
 public class PacientesController {
 
-    public void cadastrar(@RequestBody DadosCadastroMedico dados){
-        System.out.println("dados recebidos:" + dados);
+    private PacienteRepository repository;
+
+    public void cadastrar(@RequestBody @Valid DadosCadastroPaciente dados){
+        repository.save(new Paciente(dados));
     }
 }
